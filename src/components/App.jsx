@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
 function App() {
+  const [headingText, setHeadingText] = useState("Hello");
+
+  function handleClick() {
+    setHeadingText("Submitted");
+  }
+
   return (
     <div className="container">
-      <h1>Hello</h1>
+      <h1>{headingText}</h1>
       <input type="text" placeholder="What's your name?" />
-      <button>Submit</button>
+      <button onClick={handleClick}>Submit</button>
     </div>
   );
 }
