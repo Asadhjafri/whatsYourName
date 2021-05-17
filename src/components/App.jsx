@@ -3,8 +3,10 @@ import React, { useState } from "react";
 function App() {
   const [headingText, setHeadingText] = useState("");
   const [isMouseOver, setMouseOver] = useState(false);
-  const [name, setName] = useState("");
-  const [Lname, setLName] = useState("");
+  const [fullName, setFullName] = useState({
+    fName: "",
+    lName: ""
+  });
 
   function handleClick(event) {
     setHeadingText(name + Lname);
@@ -20,28 +22,43 @@ function App() {
   }
 
   function handleChange(event) {
-    setName(event.target.value);
-  }
+    const newValue = event.target.value;
+    const inputName = event.target.name;
 
-  function handleLname(event) {
-    setLName(event.target.value);
+    setFullName((prevValue) => {
+      if (inputName === "fName") {
+        return {
+          fName: newValue,
+          lName: prevValue.lName
+        };
+      } else if (inputName === "lName") {
+        return {
+          fName: prevValue.fName,
+          lName: newValue
+        };
+      }
+    });
   }
 
   return (
     <div className="container">
-      <h1>Hello {headingText}</h1>
+      <h1>
+        Hello {fullName.fName} {fullName.lName}
+      </h1>
       <form onSubmit={handleClick}>
         <input
+          name="fName"
           onChange={handleChange}
           type="text"
           placeholder="First name"
-          value={name}
+          value={fullName.fName}
         />
         <input
-          onChange={handleLname}
+          name="lName"
+          onChange={handleChange}
           type="text"
           placeholder="Last name"
-          value={Lname}
+          value={fullName.lName}
         />
         <button
           type="submit"
