@@ -4,9 +4,10 @@ function App() {
   const [headingText, setHeadingText] = useState("");
   const [isMouseOver, setMouseOver] = useState(false);
   const [name, setName] = useState("");
+  const [Lname, setLName] = useState("");
 
   function handleClick(event) {
-    setHeadingText(name);
+    setHeadingText(name + Lname);
     event.preventDefault();
   }
 
@@ -22,6 +23,10 @@ function App() {
     setName(event.target.value);
   }
 
+  function handleLname(event) {
+    setLName(event.target.value);
+  }
+
   return (
     <div className="container">
       <h1>Hello {headingText}</h1>
@@ -29,8 +34,14 @@ function App() {
         <input
           onChange={handleChange}
           type="text"
-          placeholder="What's your name?"
+          placeholder="First name"
           value={name}
+        />
+        <input
+          onChange={handleLname}
+          type="text"
+          placeholder="Last name"
+          value={Lname}
         />
         <button
           type="submit"
