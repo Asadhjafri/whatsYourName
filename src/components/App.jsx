@@ -1,17 +1,12 @@
 import React, { useState } from "react";
 
 function App() {
-  const [headingText, setHeadingText] = useState("");
   const [isMouseOver, setMouseOver] = useState(false);
-  const [fullName, setFullName] = useState({
+  const [contact, setContact] = useState({
     fName: "",
-    lName: ""
+    lName: "",
+    email: ""
   });
-
-  function handleClick(event) {
-    setHeadingText(name + Lname);
-    event.preventDefault();
-  }
 
   function handleMouseColor() {
     setMouseOver(true);
@@ -22,18 +17,26 @@ function App() {
   }
 
   function handleChange(event) {
-    const { value, name } = event.target;
+    const { name, value } = event.target;
 
-    setFullName((prevValue) => {
+    setContact((prevValue) => {
       if (name === "fName") {
         return {
           fName: value,
-          lName: prevValue.lName
+          lName: prevValue.lName,
+          email: prevValue.email
         };
       } else if (name === "lName") {
         return {
           fName: prevValue.fName,
-          lName: value
+          lName: value,
+          email: prevValue.email
+        };
+      } else if (name === "email") {
+        return {
+          fName: prevValue.fName,
+          lName: prevValue.lName,
+          email: value
         };
       }
     });
@@ -42,22 +45,27 @@ function App() {
   return (
     <div className="container">
       <h1>
-        Hello {fullName.fName} {fullName.lName}
+        Hello {contact.fName} {contact.lName}
       </h1>
-      <form onSubmit={handleClick}>
+      <p>{contact.email}</p>
+      <form>
         <input
-          name="fName"
           onChange={handleChange}
-          type="text"
-          placeholder="First name"
-          value={fullName.fName}
+          value={contact.fName}
+          name="fName"
+          placeholder="First Name"
         />
         <input
-          name="lName"
           onChange={handleChange}
-          type="text"
-          placeholder="Last name"
-          value={fullName.lName}
+          value={contact.lName}
+          name="lName"
+          placeholder="Last Name"
+        />
+        <input
+          onChange={handleChange}
+          value={contact.email}
+          name="email"
+          placeholder="Email"
         />
         <button
           type="submit"
